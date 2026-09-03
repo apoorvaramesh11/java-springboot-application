@@ -7,14 +7,14 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "babugudageri/spring-boot"
+        IMAGE_NAME = "apoorvar12/spring-boot"
     }
 
     stages {
 
         stage('Git Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/BasavarajGudageri-05/java-springboot-application.git'
+                git branch: 'main', url: 'https://github.com/apoorvaramesh11/java-springboot-application.git'
             }
         }
 
