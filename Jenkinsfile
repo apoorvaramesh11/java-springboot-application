@@ -60,7 +60,7 @@ pipeline {
                         echo '✅ Deployment complete!'
                     '''
                 }
-            }
+            
         }
     }
 }
