@@ -57,7 +57,7 @@ pipeline {
                         
                         
                         echo '📦 Applying deployment...'
-                        kubectl --kubeconfig=/tmp/kind-config apply -f Deployment.yaml                        
+                        kubectl apply -f Deployment.yaml                        
                         echo '✅ Deployment complete!'
                     '''
                 }
