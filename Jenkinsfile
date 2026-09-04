@@ -51,16 +51,12 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo "🚀 Deploying to Kubernetes..."
-                withKubeConfig(
-                    credentialsId: 'k8sID'
-                    
-                ) {
+               
                     sh '''
                       
                         
                         echo '📦 Applying deployment...'
-                        kubectl apply -f Deployment.yaml
-                        
+                        kubectl --kubeconfig=/tmp/kind-config apply -f Deployment.yaml                        
                         echo '✅ Deployment complete!'
                     '''
                 }
