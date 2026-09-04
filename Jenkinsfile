@@ -52,7 +52,7 @@ pipeline {
             steps {
                 echo "🚀 Deploying to Kubernetes..."
                 withKubeConfig(
-                    credentialsId: 'kubectlID'
+                    credentialsId: 'kubectlID')
                     sh '''
                         
                         
