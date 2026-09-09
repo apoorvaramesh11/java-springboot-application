@@ -9,6 +9,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "apoorvar12/spring-boot"
+        IMAGE_TAG = "$BUILD_NUMBER"
     }
 
     stages {
@@ -35,7 +36,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo '🏗️ Building Docker image...'
-                sh 'docker build -t $IMAGE_NAME:latest .'
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
 
@@ -50,11 +51,36 @@ pipeline {
                 ]) {
                     sh '''
                         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push $IMAGE_NAME:latest
+                        docker push $IMAGE_NAME:$IMAGE_TAG
                     '''
                 }
             }
         }
+
+         stage('Update Deployment') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                    credentialsId: 'githubID',
+                    usernameVariable: 'GIT_USER',
+                    passwordVariable: 'GIT_TOKEN'
+                )    
+                ]) {
+                    sh '''
+                        sed -i "s|image: .*|image: ${IMAGE_NAME}:${IMAGE_TAG}|" Deployment.yaml
+
+                        git config user.name "Jenkins"
+                        git config user.email "jenkins@example.com"
+
+                        git add Deployment.yaml
+                        git commit -m "Update image to ${IMAGE_TAG}" || true
+
+                        git push https://${GIT_USER}:${GIT_TOKEN}@github.com/apoorvaramesh11/java-springboot-application.git HEAD:main
+                '''    
+            }
+        }
     }
+                
+}
 }
 
