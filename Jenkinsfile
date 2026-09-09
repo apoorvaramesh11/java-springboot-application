@@ -1,3 +1,4 @@
+```groovy
 pipeline {
     agent any
 
@@ -14,7 +15,8 @@ pipeline {
 
         stage('Git Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/apoorvaramesh11/java-springboot-application.git'
+                git branch: 'main',
+                    url: 'https://github.com/apoorvaramesh11/java-springboot-application.git'
             }
         }
 
@@ -39,7 +41,13 @@ pipeline {
 
         stage('Docker Login & Push') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerID', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USER')]) {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerID',
+                        passwordVariable: 'DOCKER_PASSWORD',
+                        usernameVariable: 'DOCKER_USER'
+                    )
+                ]) {
                     sh '''
                         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
                         docker push $IMAGE_NAME:latest
@@ -47,21 +55,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                echo "🚀 Deploying to Kubernetes..."
-                withKubeConfig(
-                    credentialsId: 'kubectlID'){
-                    sh '''
-                        
-                        
-                        echo '📦 Applying deployment...'
-                        kubectl apply -f Deployment.yaml                        
-                        echo '✅ Deployment complete!'
-                    '''
-                }
-            }
-        }
     }
 }
+```
