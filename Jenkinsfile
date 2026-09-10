@@ -57,29 +57,6 @@ pipeline {
             }
         }
 
-         stage('Update Deployment') {
-            steps {
-                withCredentials([
-                    usernamePassword(
-                    credentialsId: 'githubID',
-                    usernameVariable: 'GIT_USER',
-                    passwordVariable: 'GIT_TOKEN'
-                )    
-                ]) {
-                    sh '''
-                        sed -i "s|image: .*|image: ${IMAGE_NAME}:${IMAGE_TAG}|" Deployment.yaml
-
-                        git config user.name "Jenkins"
-                        git config user.email "jenkins@example.com"
-
-                        git add Deployment.yaml
-                        git commit -m "Update image to ${IMAGE_TAG}" || true
-
-                        git push https://${GIT_USER}:${GIT_TOKEN}@https://github.com/basavarajgudageri07/java-springboot-application.git HEAD:main
-                '''    
-            }
-        }
-    }
                 
 }
 }
