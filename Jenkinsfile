@@ -68,13 +68,13 @@ pipeline {
         ]) {
             sh '''
 
-                sed -i "s|image: .*|image: apoorvar12/spring-boot:${BUILD_NUMBER}|" deployment.yaml
+                sed -i "s|image: .*|image: apoorvar12/spring-boot:${BUILD_NUMBER}|" Deployment.yaml
 
                 
 
                 git add deployment.yaml
 
-                git commit -m "Updated deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
+                git commit -m "Updated Deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
 
                 git remote -v
 
