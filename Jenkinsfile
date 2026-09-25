@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -9,7 +8,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "apoorvar12/spring-boot"
-        IMAGE_TAG = "$BUILD_NUMBER"
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -61,34 +60,32 @@ pipeline {
             steps {
                 withCredentials([
                     usernamePassword(
-                    credentialsId: '2812bb42-b31c-4b40-a31d-8a486a59fdca',
-                passwordVariable: 'GIT_PASSWORD',
-                usernameVariable: 'GIT_USERNAME'
-            )
-        ]) {
-            sh '''
+                        credentialsId: '2812bb42-b31c-4b40-a31d-8a486a59fdca',
+                        passwordVariable: 'GIT_PASSWORD',
+                        usernameVariable: 'GIT_USERNAME'
+                    )
+                ]) {
+                    sh '''
+                        git config user.name "Jenkins"
+                        git config user.email "jenkins@example.com"
 
-                sed -i "s|image: .*|image: apoorvar12/spring-boot:${BUILD_NUMBER}|" Deployment.yaml
+                        # Pull latest changes first
+                        git pull --rebase origin main
 
-                
-                git config --global user.name "Jenkins"
-                git config --global user.email "jenkins@example.com"
-                git pull --rebase origin main
-                git add Deployment.yaml
+                        # Update Kubernetes image
+                        sed -i "s|image: .*|image: apoorvar12/spring-boot:${BUILD_NUMBER}|" Deployment.yaml
 
-                git commit -m "Updated Deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
+                        # Add changed file
+                        git add Deployment.yaml
 
-                git remote -v
+                        # Commit
+                        git commit -m "Updated Deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
 
-                git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/apoorvaramesh11/java-springboot-application.git HEAD:main
-            '''
+                        # Push
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/apoorvaramesh11/java-springboot-application.git HEAD:main
+                    '''
+                }
+            }
         }
     }
 }
-         
-    
-
-                
-}
-}
-
