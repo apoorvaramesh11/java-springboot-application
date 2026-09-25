@@ -57,6 +57,35 @@ pipeline {
             }
         }
 
+        stage('Update K8S manifest & push to Repo') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                    credentialsId: '2812bb42-b31c-4b40-a31d-8a486a59fdca',
+                passwordVariable: 'GIT_PASSWORD',
+                usernameVariable: 'GIT_USERNAME'
+            )
+        ]) {
+            sh '''
+
+                sed -i "s|image: .*|image: apoorvar12/spring-boot:${BUILD_NUMBER}|" deployment.yaml
+
+                
+
+                git add deployment.yaml
+
+                git commit -m "Updated deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
+
+                git remote -v
+
+                git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/apoorvaramesh11/java-springboot-application.git HEAD:main
+            '''
+        }
+    }
+}
+         
+    }
+}
                 
 }
 }
