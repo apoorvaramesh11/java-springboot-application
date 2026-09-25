@@ -72,7 +72,7 @@ pipeline {
 
                 
 
-                git add deployment.yaml
+                git add Deployment.yaml
 
                 git commit -m "Updated Deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
 
