@@ -73,7 +73,7 @@ pipeline {
                 
                 git config --global user.name "Jenkins"
                 git config --global user.email "jenkins@example.com"
-                git pull
+                git pull origin main
                 git add Deployment.yaml
 
                 git commit -m "Updated Deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
