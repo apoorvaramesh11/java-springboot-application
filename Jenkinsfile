@@ -17,7 +17,7 @@ pipeline {
         stage('Git Clone') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/basavarajgudageri07/java-springboot-application.git'
+                    url: 'https://github.com/apoorvaramesh11/java-springboot-application.git'
             }
         }
 
