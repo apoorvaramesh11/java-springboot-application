@@ -4,6 +4,8 @@ metadata:
   name: spring-boot
 spec:
   replicas: 3
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: spring-boot
