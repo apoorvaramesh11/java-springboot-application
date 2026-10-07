@@ -34,7 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: springboot-svc-1
+  name: springboot-svc-v1
 spec:
   selector:
     app: spring-boot
