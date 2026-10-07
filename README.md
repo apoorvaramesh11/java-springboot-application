@@ -104,6 +104,8 @@ spec:
 ~~~
 
 
+# Run jenkins as container
+~~~
 docker run -d \
   --name jenkins \
   -p 8082:8080 \
@@ -111,3 +113,4 @@ docker run -d \
   -v jenkins_home:/var/jenkins_home \
   -v /var/run/docker.sock:/var/run/docker.sock \
   jenkins/jenkins:lts
+~~~
