@@ -27,7 +27,7 @@ spec:
             memory: "512Mi"
             cpu: "1"
 
-
+---
 
 #service
 
