@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-boot
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: spring-boot
+        version: v1
+    spec:
+      containers:
+      - name: spring-boot
+        image: apoorva12/spring-boot:17
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
