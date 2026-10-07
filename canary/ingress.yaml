@@ -16,12 +16,12 @@ metadata:
             {
               "serviceName":"springboot-svc-v1",
               "servicePort":"8080",
-              "weight":90
+              "weight":0
             },
             {
               "serviceName":"springboot-svc-v2",
               "servicePort":"8080",
-              "weight":10
+              "weight":100
             }
           ]
         }
