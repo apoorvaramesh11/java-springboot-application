@@ -17,6 +17,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: service-green
+            name: service-blue
             port:
               number: 8080
