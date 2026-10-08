@@ -8,8 +8,28 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:289835835122:certificate/a1098d2b-0692-4860-8d2b-a8615f20efdd
 
+    alb.ingress.kubernetes.io/actions.blue-green: >
+      {
+        "type": "forward",
+        "forwardConfig": {
+          "targetGroups": [
+            {
+              "serviceName": "service-blue",
+              "servicePort": "8080",
+              "weight": 100
+            },
+            {
+              "serviceName": "service-green",
+              "servicePort": "8080",
+              "weight": 0
+            }
+          ]
+        }
+      }
+
 spec:
   ingressClassName: alb
+
   rules:
   - http:
       paths:
@@ -17,6 +37,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: service-blue
+            name: blue-green
             port:
-              number: 8080
+              name: use-annotation
