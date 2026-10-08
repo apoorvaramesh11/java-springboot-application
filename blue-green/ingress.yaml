@@ -16,12 +16,12 @@ metadata:
             {
               "serviceName": "service-blue",
               "servicePort": "8080",
-              "weight": 100
+              "weight": 0
             },
             {
               "serviceName": "service-green",
               "servicePort": "8080",
-              "weight": 0
+              "weight": 100
             }
           ]
         }
