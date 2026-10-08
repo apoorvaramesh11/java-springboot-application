@@ -76,7 +76,7 @@ pipeline {
                         sed -i "s|image: .*|image: apoorvar12/spring-boot:${BUILD_NUMBER}|" blue-green/Deployment-green.yaml
 
                         # Add changed file
-                        git add blue-green/Deployment.yaml
+                        git add blue-green/Deployment-green.yaml
 
                         # Commit
                         git commit -m "Updated Deployment.yaml with build ${IMAGE_TAG}" || echo "No changes to commit"
