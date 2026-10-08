@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spring-boot
-        image: apoorvar12/spring-boot:v22
+        image: apoorvar12/spring-boot:v23
         ports:
         - containerPort: 8080
         resources:
